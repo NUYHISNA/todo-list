@@ -36,7 +36,19 @@ def date_todo(cur):
         print("사용자의 값이 없습니다.") 
     for data in todo:
         print(f"번호: {data[0]}, 날짜: {data[1]}, 해야할 일: {data[2]}, 끝낸 날짜: {data[3]}, 실행한 횟수: {data[4]}")
-    
+
+def todo_done(cur,con):
+    read_todo(cur)
+    done_input = input("완료표시 할 태스크 번호 입력")
+    cur.execute(f"update todo set done = 1 where seq = {done_input}")
+    con.commit() 
+
+def todo_delete(cur,con):
+    read_todo(cur)
+    delete_input = input("삭제 할 태스크 번호 입력")
+    cur.execute(f"delete from todo where seq = {delete_input}")
+    con.commit()
+
 def run():
     #프로그램 실행 시작점
     todo = True
@@ -54,9 +66,11 @@ def run():
             print("특정날짜 조회")
             date_todo(cur)
         elif user_input == '4':
-            print("해야할일수정")
+            print("완료표시하기")
+            todo_done(cur,con)
         elif user_input == '5':
             print("해야할일삭제")
+            todo_delete(cur,con)
         elif user_input == 'exit':
             print("프로그램종료")
             todo = False
