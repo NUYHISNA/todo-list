@@ -76,4 +76,20 @@ def run():
             todo = False
     con.close()
 
-run()
+#run()
+
+def sign_up():
+    print("아이디와 비밀번호를 입력해주세요.")
+    id_input = input("로그인 아이디: ")
+    pw_input = input("패스워드: ")
+    username = input("유저네임: ")
+    year = input("생년월일(ex.yymmdd): ")
+    gender = input("성별(M/W): ")
+    con = sqlite3.connect("todo.db")
+    cur = con.cursor()
+    cur.execute(f"INSERT INTO user('login_ID', 'PassWord', 'user_name', 'user_gender', 'user_years') \
+    VALUES('{id_input}', '{pw_input}', '{username}', '{gender}', '{year}')")
+    con.commit()
+    con.close()
+
+sign_up()

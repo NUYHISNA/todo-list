@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        html, body{
+            background-color: #000000;
+        }
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            padding: 0;
+        }
+        input{
+            appearance: none;
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            text-align: center;
+        }
+        input[type=button]{
+            border-radius: 500px;
+            background-color: #333333;
+            color: white;
+            font-size: 40px;
+
+            width: 80px;
+            height: 80px;
+
+            margin: 10px;
+        }
+        input[type=text]::placeholder{
+            color: white;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="box" style="height: 100vh;">
+        <div>
+            <input type="text" id="input1" placeholder="0" style="font-size: 40px; text-align: right; width: 300px; color: white;" readonly><br>
+            <div>
+                <input type="button" value="7" onclick="input_number('7')">
+                <input type="button" value="8" onclick="input_number('8')">
+                <input type="button" value="9" onclick="input_number('9')">
+            </div>
+            <div>
+                <input type="button" value="4" onclick="input_number('4')">
+                <input type="button" value="5" onclick="input_number('5')">
+                <input type="button" value="6" onclick="input_number('6')">
+            </div>
+            <div>
+                <input type="button" value="1" onclick="input_number('1')">
+                <input type="button" value="2" onclick="input_number('2')">
+                <input type="button" value="3" onclick="input_number('3')">
+            </div>
+            <div>
+                <input type="button" value="+" style="background-color: #ff9f0b;" onclick="input_symbol('+')">
+                <input type="button" value="-" style="background-color: #ff9f0b;" onclick="input_symbol('-')">
+                <input type="button" value="*" style="background-color: #ff9f0b;" onclick="input_symbol('*')">
+            </div>
+            <div>
+                <input type="button" value="/" style="background-color: #ff9f0b;" onclick="input_symbol('/')">
+                <input type="button" value="=" style="background-color: #ff9f0b; width: 180px;">
+            </div>
+        </div>
+    </div>
+    <script>
+        function click_text(){
+            if("121212121212".indexOf(".") != -1)
+            document.getElementById("input3").checked
+            document.getElementById("input1").value
+            document.getElementById("h1_tag").innerText = 1;
+            Number(data)
+        }
+        function input_number(text){
+            document.getElementById("input1").value += text;
+        }
+        function input_symbol(text){
+            if (document.getElementById("input1").value.indexOf("+") == -1 && document.getElementById("input1").value.indexOf("-") == -1 && document.getElementById("input1").value.indexOf("*") == -1 && document.getElementById("input1").value.indexOf("/") == -1){
+                document.getElementById("input1").value += text;
+            }
+        }
+    </script>
+  </body>
+</html>
