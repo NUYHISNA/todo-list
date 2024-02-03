@@ -54,6 +54,19 @@ def run():
     todo = True
     con = sqlite3.connect("todo.db")
     cur = con.cursor()
+
+    print("아이디가 없으시다면 회원가입: 1번")
+    print("아이디가 있으시다면 로그인: 2번")
+    auth = input("항목을 선택해주세요: ")
+    if auth == 1:
+        sign_up(con, cur)
+    elif auth == 2:
+        is_auth = sign_in(cur)
+    if not is_auth:
+        print("로그인 실패로 프로그램 종료")
+        return
+
+    
     while(todo):
         user_input = input("숫자를 입력해주세요")
         if user_input == '1':
@@ -76,20 +89,38 @@ def run():
             todo = False
     con.close()
 
-#run()
+run()
 
-def sign_up():
+def sign_up(con,cur):
     print("아이디와 비밀번호를 입력해주세요.")
     id_input = input("로그인 아이디: ")
     pw_input = input("패스워드: ")
     username = input("유저네임: ")
     year = input("생년월일(ex.yymmdd): ")
     gender = input("성별(M/W): ")
-    con = sqlite3.connect("todo.db")
-    cur = con.cursor()
     cur.execute(f"INSERT INTO user('login_ID', 'PassWord', 'user_name', 'user_gender', 'user_years') \
     VALUES('{id_input}', '{pw_input}', '{username}', '{gender}', '{year}')")
     con.commit()
-    con.close()
 
-sign_up()
+#sign_up()
+
+"""
+로그인
+아이디와 패스워드를 받고 로그인 시도
+로그인 성공:True
+로그인 실패: False
+"""
+
+def sign_in(cur):
+    user_id = input("아이디 입력: ")
+    user_pw = input("패스워드 입력: ")
+    result = cur.execute(f"SELECT login_ID, PassWord FROM USER WHERE login_ID = '{user_id}' AND PassWord = '{user_pw}' ")
+    user = result.fetchall()
+    if len(user) == 0:
+        print("로그인 실패") 
+        return False
+
+    print("로그인 성공")
+    return True
+
+#sign_in()

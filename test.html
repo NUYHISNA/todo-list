@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="textdata">
+    <input type="button" value="등록" onclick="add()">
+    <br>
+    <div id="checkbox_box"></div>
+    <script>
+        function add(){
+            isSame = false
+            for(let i = 0; i < localStorage.length; i++){
+                if(localStorage.key(i) == document.getElementById("textdata")){
+                    isSame = true
+                }
+            }
+            if(isSame == false){
+                // 등록
+            }
+        }
+    </script>
+</body>
+</html>
