@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h2{
+        font-family: 'Pretendard-Regular';
+        padding: 10px;
+      }
+
+      p{
+        font-family: 'Pretendard-Regular';
+        padding: 5px;
+      }
+
+      img {
+        height: 80px;
+        padding: 10px;
+      }
+
+      html, body{
+          padding: 0;
+          margin: 0;
+      }
+
+      @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: bold;
+    }
+    </style>
+  </head>
+  <body>
+    <title>news</title>
+    <div style="text-align: center;">
+        <!-- onclick="asdf = '야구 lg'" -->
+      <img src="lg.svg" onclick="baseball('LG')"/>
+      <img src="kt.svg" onclick="baseball('kt')"/>
+      <img src="nc.svg" onclick="baseball('nc')"/>
+      <img src="ssg.svg" onclick="baseball('ssg')"/>
+      <img src="doosan.svg" onclick="baseball('두산')"/>
+      <img src="kia.svg" onclick="baseball('기아')"/>
+      <img src="lotte.svg" onclick="baseball('롯데')"/>
+      <img src="samsung.svg" onclick="baseball('삼성')"/>
+      <img src="hanwha.svg" onclick="baseball('한화')"/>
+      <img src="kiwoom.svg" onclick="baseball('키움')"/>
+    </div>
+    <div style="width: 100vw">
+      <div style="border-radius: 50px; height:350px; width: 50vw; float: left; border: 1px rgb(151, 151, 151) solid; box-sizing: border-box;">
+        <h2 id="tit1" >국내 <b>주식</b>형펀드서 사흘째 자금 순유출</h2>
+        <p id="des1">
+          국내 <b>주식</b>형 펀드에서 사흘째 자금이 빠져나갔다. 26일
+          금융투자협회에 따르면 지난 22일 상장지수펀드(ETF)를 제외한 국내
+          <b>주식</b>형 펀드에서 126억원이 순유출됐다. 472억원이 들어오고
+          598억원이 펀드...
+        </p>
+        <p id="dat1">Mon, 26 Sep 2016 07:50:00 +0900</p>
+      </div>
+      <div style="width: 50vw; float: left;">
+        <div style="border-radius: 50px; height:175px; border: 1px rgb(151, 151, 151) solid; box-sizing: border-box;">
+            <h2 id="tit2">국내 <b>주식</b>형펀드서 사흘째 자금 순유출</h2>
+            <p id="des2">
+            국내 <b>주식</b>형 펀드에서 사흘째 자금이 빠져나갔다. 26일
+            금융투자협회에 따르면 지난 22일 상장지수펀드(ETF)를 제외한 국내
+            <b>주식</b>형 펀드에서 126억원이 순유출됐다. 472억원이 들어오고
+            598억원이 펀드...
+            </p>
+            <p id="dat2">Mon, 26 Sep 2016 07:50:00 +0900</p>
+        </div>
+        <div style="border-radius: 50px; height:175px; border: 1px rgb(151, 151, 151) solid; box-sizing: border-box;">
+            <h2 id="tit3">국내 <b>주식</b>형펀드서 사흘째 자금 순유출</h2>
+            <p id="des3">
+            국내 <b>주식</b>형 펀드에서 사흘째 자금이 빠져나갔다. 26일
+            금융투자협회에 따르면 지난 22일 상장지수펀드(ETF)를 제외한 국내
+            <b>주식</b>형 펀드에서 126억원이 순유출됐다. 472억원이 들어오고
+            598억원이 펀드...
+            </p>
+            <p id="dat3">Mon, 26 Sep 2016 07:50:00 +0900</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        function baseball(asdf){
+            fetch("https://api.findflag.kr/baseball/" + asdf, {
+                method: "GET",
+                headers: {
+                    "X-Naver-Client-Id": "3jUjYOjGCJsPwrOBOea3",
+                    "X-Naver-Client-Seceret": "po4auLQyJy"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById("tit1").innerText = data['documents'][0]['title']
+                document.getElementById("tit2").innerText = data['documents'][1]['title']
+                document.getElementById("tit3").innerText = data['documents'][2]['title']
+                document.getElementById("des1").innerText = data['documents'][0]['author']
+                document.getElementById("des2").innerText = data['documents'][1]['author']
+                document.getElementById("des3").innerText = data['documents'][2]['author']
+                document.getElementById("dat1").innerText = data['documents'][0]['datetime']
+                document.getElementById("dat1").innerText = data['documents'][1]['datetime']
+                document.getElementById("dat1").innerText = data['documents'][2]['datetime']
+            })
+        }   
+    </script>
+  </body>
+</html>

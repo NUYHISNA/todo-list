@@ -14,7 +14,7 @@ def set_todo(con, cur):
     print(todos)
     # INSERT INTO todo('created_date', 'contents') VALUES ('2023-12-30', '베스킨라빈스먹기')
     for todo in todos:
-        cur.execute(f"INSERT INTO todo('created_date', 'contents') VALUES('{today_date}','{todo}')")
+        cur.execute(f"INSERT INTO todo('created_date', 'contents) VALUES('{today_date}','{todo}')")
     con.commit()   
     
 def read_todo(cur):
@@ -49,24 +49,59 @@ def todo_delete(cur,con):
     cur.execute(f"delete from todo where seq = {delete_input}")
     con.commit()
 
+def sign_up(con,cur):
+    print("아이디와 비밀번호를 입력해주세요.")
+    id_input = input("로그인 아이디: ")
+    pw_input = input("패스워드: ")
+    username = input("유저네임: ")
+    year = input("생년월일(ex.yymmdd): ")
+    gender = input("성별(M/W): ")
+    cur.execute(f"INSERT INTO user('login_ID', 'PassWord', 'user_name', 'user_gender', 'user_years') \
+    VALUES('{id_input}', '{pw_input}', '{username}', '{gender}', '{year}')")
+    con.commit()
+
+"""
+로그인
+아이디와 패스워드를 받고 로그인 시도
+로그인 성공:True
+로그인 실패: False
+"""
+def sign_in(cur):
+    user_id = input("아이디 입력: ")
+    user_pw = input("패스워드 입력: ")
+
+    result = cur.execute(f"SELECT seq FROM USER WHERE login_ID = '{user_id}' AND PassWord = '{user_pw}' ")
+    user = result.fetchone()
+    #로그인 성공시: (2,)
+    #로그인 실패시: None
+
+    if not user:
+        print("로그인 실패") 
+        return -1
+
+    print("로그인 성공")
+    return user[0]
+
 def run():
     #프로그램 실행 시작점
     todo = True
+    is_auth = -1
     con = sqlite3.connect("todo.db")
     cur = con.cursor()
 
     print("아이디가 없으시다면 회원가입: 1번")
     print("아이디가 있으시다면 로그인: 2번")
     auth = input("항목을 선택해주세요: ")
-    if auth == 1:
+    if auth == "1":
         sign_up(con, cur)
-    elif auth == 2:
+        return
+    elif auth == "2":
         is_auth = sign_in(cur)
-    if not is_auth:
+
+    if is_auth == -1:
         print("로그인 실패로 프로그램 종료")
         return
 
-    
     while(todo):
         user_input = input("숫자를 입력해주세요")
         if user_input == '1':
@@ -90,37 +125,3 @@ def run():
     con.close()
 
 run()
-
-def sign_up(con,cur):
-    print("아이디와 비밀번호를 입력해주세요.")
-    id_input = input("로그인 아이디: ")
-    pw_input = input("패스워드: ")
-    username = input("유저네임: ")
-    year = input("생년월일(ex.yymmdd): ")
-    gender = input("성별(M/W): ")
-    cur.execute(f"INSERT INTO user('login_ID', 'PassWord', 'user_name', 'user_gender', 'user_years') \
-    VALUES('{id_input}', '{pw_input}', '{username}', '{gender}', '{year}')")
-    con.commit()
-
-#sign_up()
-
-"""
-로그인
-아이디와 패스워드를 받고 로그인 시도
-로그인 성공:True
-로그인 실패: False
-"""
-
-def sign_in(cur):
-    user_id = input("아이디 입력: ")
-    user_pw = input("패스워드 입력: ")
-    result = cur.execute(f"SELECT login_ID, PassWord FROM USER WHERE login_ID = '{user_id}' AND PassWord = '{user_pw}' ")
-    user = result.fetchall()
-    if len(user) == 0:
-        print("로그인 실패") 
-        return False
-
-    print("로그인 성공")
-    return True
-
-#sign_in()

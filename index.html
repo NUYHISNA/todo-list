@@ -95,3 +95,17 @@
     </script>
   </body>
 </html>
+
+
+
+
+
+fetch("URL", {
+    method: "GET or POST",
+    headers: {"Content-type": "applicaton/json"}, // POST일 때만
+    body: JSON.stringify({"todo": "DATA"})  // POST일 때만
+})
+.then(response => response.json())
+.then(data => {
+    // 코딩
+})
